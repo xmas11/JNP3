@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
+    {% load staticfiles %}
     <head>
-        <meta charset="UTF-8">
         <title>Strona główna </title>
+        <meta name="viewport" content="width=device-width initial-scale=1.0" charset="UTF-8">
+        <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     </head>
 
     <body>
         Content
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"/>
     </body>
 </html>
+
