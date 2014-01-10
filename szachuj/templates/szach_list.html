@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Szachow</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+<div class="content">
+    <ul>
+        {% for szach in object_list %}
+            <li>{{ szach.content }} Signed by {{ szach.signature }}</li>
+        {% empty %}
+            <li>No szachs yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

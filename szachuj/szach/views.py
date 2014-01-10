@@ -1,4 +1,5 @@
-from django.views.generic import TemplateView, FormView
+from django.utils import timezone
+from django.views.generic import TemplateView, FormView, ListView
 from forms import SzachForm
 from django.core import serializers
 from django.http import HttpResponseRedirect
@@ -23,6 +24,8 @@ class SzachView(FormView):
         # Sending data using rabbitMQ
 
         data_szach = serializers.serialize('xml', [szach])
+
+        # TODO Connection should with runserver, not each time while sending form
         connection = pika.BlockingConnection(pika.ConnectionParameters(
                    'localhost'))
         database_channel = connection.channel()
@@ -39,3 +42,12 @@ class SzachSuccessView(TemplateView):
     template_name = "szach_success.html"
 
 
+class SzachListView(ListView):
+
+    model = Szach
+    template_name = "szach_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SzachListView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
