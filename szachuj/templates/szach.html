@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Szach</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="content">
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+    </div>
+</body>
+</html>
