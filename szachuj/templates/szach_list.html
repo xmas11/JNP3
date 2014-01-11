@@ -6,13 +6,24 @@
 <body>
     {% include "navbar.html" %}
 <div class="content">
-    <ul>
-        {% for szach in object_list %}
-            <li>{{ szach.content }} Signed by {{ szach.signature }}</li>
-        {% empty %}
-            <li>No szachs yet.</li>
-        {% endfor %}
-    </ul>
+    <table class="table table-hover">
+        <thead>
+            <td>Date</td>
+            <td>Signature</td>
+            <td>Content</td>
+        </thead>
+        <tbody>
+            {% for szach in object_list %}
+                <tr>
+                <td>{{ szach.stamp }}</td>
+                <td>{{ szach.signature }}</td>
+                <td>{{ szach.content }}</td>
+                </tr>
+            {% empty %}
+                <tr><td>No szachs yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
