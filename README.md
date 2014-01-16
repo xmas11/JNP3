@@ -4,6 +4,17 @@ JNP3
 Nowosci:
 ========
 
+Dodaje full-text-search. Korzystamy z Haystack, a z tylu dziala solr. Standardowo : pip install django-haystack
+
+
+Instalacja i odpalanie solr (mozna trzymac gdziekolwiek, nie musi byc wewnatrz projektu:
+Pierwszy akapit https://django-haystack.readthedocs.org/en/latest/installing_search_engines.html
+
+
+
+Bede musial to troche poprawic, bo na razie wyszukiwanie nie dziala jakos rewelacyjnie.
+
+
 Dodalem raabitMQ, i nawet dziala. Mozna sobie dodawac szachy.
 Jesli chcecie odpalic u siebie na kompie:
 Trzeba miec rabitMQ i miec odpalony proces z programem rabitmq-server (sudo jest potrzebne)
