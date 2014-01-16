@@ -7,13 +7,14 @@ Wrzucilem do repo 3 skrypty : run_service[1-3].sh .
 Odpalamy je w trzech roznych konsolach, w takiej kolejnosci jak mowia numerki. Pamietajcie o odpowiednim srodowisku jak ktos korzysta z virtual env. Skrypty zadzialaja, jesli macie nastepujaca strukture katalogow:
 
 costam/<br>
---->JNP3/<br>
-------->szachuj/ <br>
------------>manage.py <br>
------------>szach/ <br>
-------->run_service[1-3].sh <br>
---->apache-solr-3.5.0/ <br>
---->rabbitmq_server-3.2.2/ <br>
+----JNP3/<br>
+--------szachuj/ <br>
+------------manage.py <br>
+------------szach/ <br>
+--------README.md <br>
+--------run_service[1-3].sh <br>
+----apache-solr-3.5.0/ <br>
+----rabbitmq_server-3.2.2/ <br>
 
 Nowosci:
 ========
