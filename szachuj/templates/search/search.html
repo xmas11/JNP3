@@ -17,14 +17,14 @@
                 <thead>
                     <td>Stamp</td>
                     <td>Signature</td>
-                    <td>Content</td>
+                    <td>Subject</td>
                 </thead>
                 <tbody>
                     {% for result in page.object_list %}
                         <tr>
                             <td>{{ result.object.stamp|date:"SHORT_DATE_FORMAT"}}</td>
                             <td>{{ result.object.signature }}</td>
-                            <td><a href="{% url 'szach_view' pk=result.object.pk %}">{{ result.object.content }}</a></td>
+                            <td><a href="{% url 'szach_view' pk=result.object.pk %}">{{ result.object.subject }}</a></td>
                         </tr>
                     {% empty %}
                         <p>No results found.</p>

@@ -2,9 +2,9 @@
 {% block content %}
         <form action="" method="post">{% csrf_token %}
             <div class="input-group">
-                {{ form.content_errors }}
+                {{ form.subject_errors }}
                 <span class="input-group-addon">@</span>
-                {{ form.content }}
+                {{ form.subject }}
             </div>
             <br>
             <div class="input-group">

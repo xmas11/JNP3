@@ -34,9 +34,9 @@ class SzachFormView(FormView):
     success_url = '/szach_success/'
 
     def form_valid(self, form):
-        content = form.cleaned_data['content']
+        subject = form.cleaned_data['subject']
         signature = form.cleaned_data['signature']
-        szach = Szach.objects.create(content=content, signature=signature)
+        szach = Szach.objects.create(subject=subject, signature=signature)
         # Sending data using rabbitMQ
 
         data_szach = serializers.serialize('xml', [szach])

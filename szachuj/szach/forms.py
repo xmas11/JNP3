@@ -26,8 +26,8 @@ class SzachForm(forms.ModelForm):
         widgets = {
             'signature': TextInput(attrs={'class': 'form-control',
                                            'placeholder': 'Signature'}),
-            'content': Textarea(attrs={'class': 'form-control',
-                                           'placeholder': 'Content'})
+            'subject': Textarea(attrs={'class': 'form-control',
+                                           'placeholder': 'Subject'})
         }
 
 
@@ -65,7 +65,7 @@ class SzachSearchForm(forms.Form):
 
         #sqs = self.searchqueryset.auto_query(self.cleaned_data['q'])
         print 'Searching for {}'.format(self.cleaned_data['q'])
-        sqs = self.searchqueryset.filter(content__startswith=self.cleaned_data['q'])
+        sqs = self.searchqueryset.filter(text__startswith=self.cleaned_data['q'])
         if self.load_all:
             sqs = sqs.load_all()
 

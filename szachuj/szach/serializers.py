@@ -6,4 +6,4 @@ from szach.models import Szach
 class SzachSerializer(serializers.ModelSerializer):
     class Meta:
         model = Szach
-        field = ('id', 'content', 'signature', 'stamp')
+        field = ('id', 'subject', 'signature', 'stamp')

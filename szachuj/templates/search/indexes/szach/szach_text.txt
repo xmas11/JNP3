@@ -1,2 +1,2 @@
 {{ object.signature }}
-{{ object.content }}
+{{ object.subject }}
