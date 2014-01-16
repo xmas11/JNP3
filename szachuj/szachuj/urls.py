@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^szach_success/$', SzachSuccessView.as_view(), name='szach_success_view'),
     url(r'^szach_list/$', SzachListView.as_view(), name='szach_list_view'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^search/', include('haystack.urls')),
 )

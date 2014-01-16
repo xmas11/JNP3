@@ -24,15 +24,20 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-
 TEMPLATE_DIRS = (
     BASE_DIR + '/templates/'
 )
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -41,6 +46,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whoosh',
+    'haystack',
     'szach',
 )
 
@@ -80,7 +87,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

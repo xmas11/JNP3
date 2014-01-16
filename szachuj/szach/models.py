@@ -13,3 +13,5 @@ class Szach(models.Model):
     def __unicode__(self):
         return 'Content ' + self.content + '\nSignature ' + \
                self.signature + '\n' + str(self.stamp)
+
+
