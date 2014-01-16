@@ -14,4 +14,5 @@ class Szach(models.Model):
         return 'Content ' + self.content + '\nSignature ' + \
                self.signature + '\n' + str(self.stamp)
 
-
+    class Meta:
+        ordering = ('stamp',)

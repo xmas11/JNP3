@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+
+{% block content %}
     {% load staticfiles %}
-    <head>
-        <title>Strona główna </title>
-        <meta name="viewport" content="width=device-width initial-scale=1.0" charset="UTF-8">
-        <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-
-    <body>
-
         <!-- this is script for facebook like and share buttons, should be placed right after <body> tag -->
         <script>(function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
@@ -18,9 +11,6 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-        {% include "navbar.html" %}
-
-        <div class="content">
             <div id="fb-root"></div>
 
             <div>
@@ -31,10 +21,5 @@
             <div>
                 <div class="fb-like" data-href="http://www.Zaszachuj.pl" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
             </div>
-
-        </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"/>
-    </body>
-</html>
+{% endblock %}
 

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strona główna </title>
+    <meta name="viewport" content="width=device-width initial-scale=1.0" charset="UTF-8">
+    <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
     <!-- Bootstrap core CSS -->
     <link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js   IE8 support of HTML5 elements and media queries -->
@@ -33,4 +41,10 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"/>
+</body>
+</html>
