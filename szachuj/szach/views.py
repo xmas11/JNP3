@@ -6,12 +6,11 @@ from django.core import serializers
 from models import *
 from haystack.query import EmptySearchQuerySet
 import pika
-from django.conf import settings
 from django.core.paginator import Paginator, InvalidPage
-from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from szachuj.settings import MQ_NAME
+from django.views.generic import DetailView
 
 from django.http import Http404
 
@@ -20,8 +19,17 @@ class MainPageView(TemplateView):
     template_name = "index.html"
 
 
-class SzachView(FormView):
-    template_name = "szach.html"
+class SzachView(DetailView):
+    model = Szach
+    template_name = 'szach_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SzachView, self).get_context_data(**kwargs)
+        return context
+
+
+class SzachFormView(FormView):
+    template_name = "szach_form.html"
     form_class = SzachForm
     success_url = '/szach_success/'
 
@@ -43,7 +51,7 @@ class SzachView(FormView):
                                        body=data_szach)
         print 'Sending ' + data_szach
         connection.close()
-        return super(SzachView, self).form_valid(form)
+        return super(SzachFormView, self).form_valid(form)
 
 
 class SzachSuccessView(TemplateView):

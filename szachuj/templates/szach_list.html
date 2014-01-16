@@ -9,7 +9,7 @@
         <tbody>
             {% for szach in object_list %}
                 <tr>
-                <td>{{ szach.stamp }}</td>
+                <td>{{ szach.stamp|date:"SHORT_DATE_FORMAT"}}</td>
                 <td>{{ szach.signature }}</td>
                 <td>{{ szach.content }}</td>
                 </tr>

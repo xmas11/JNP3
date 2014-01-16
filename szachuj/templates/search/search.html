@@ -15,17 +15,21 @@
             <h3>Results</h3>
             <table class="table table-stripped">
                 <thead>
+                    <td>Stamp</td>
                     <td>Signature</td>
                     <td>Content</td>
                 </thead>
-            {% for result in page.object_list %}
-                <tr>
-                    <td><a href="{{ result.object.get_absolute_url }}">{{ result.object.signature }}</a></td>
-                    <td>{{ result.object.content }}</td>
-                </tr>
-            {% empty %}
-                <p>No results found.</p>
-            {% endfor %}
+                <tbody>
+                    {% for result in page.object_list %}
+                        <tr>
+                            <td>{{ result.object.stamp|date:"SHORT_DATE_FORMAT"}}</td>
+                            <td>{{ result.object.signature }}</td>
+                            <td><a href="{% url 'szach_view' pk=result.object.pk %}">{{ result.object.content }}</a></td>
+                        </tr>
+                    {% empty %}
+                        <p>No results found.</p>
+                    {% endfor %}
+                </tbody>
             </table>
             {% if page.has_previous or page.has_next %}
                 <div>
