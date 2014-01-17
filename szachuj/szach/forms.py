@@ -66,6 +66,7 @@ class SzachSearchForm(forms.Form):
         #sqs = self.searchqueryset.auto_query(self.cleaned_data['q'])
         print 'Searching for {}'.format(self.cleaned_data['q'])
         sqs = self.searchqueryset.filter(text__startswith=self.cleaned_data['q'])
+        print 'Found {}'.format(len(sqs))
         if self.load_all:
             sqs = sqs.load_all()
 
