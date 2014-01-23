@@ -248,7 +248,7 @@ def Register(request):
 def PasswordChange(request):
 	return auth_views.password_change(request,
 		template_name='accounts/password_change.html',
-		password_change_form=PasswordChangeForm,
+		password_change_form=BootstrapPasswordChangeForm,
 		post_change_redirect='/accounts/profile')
 
 @login_required

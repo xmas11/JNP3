@@ -4,7 +4,7 @@
 
 		<form method="post" action="{{action_url}}" class="form-vertical">
 			{% csrf_token %}
-			{{ form.as_p }}
+			{{ form.as_bootstrap }}
 			<input type="hidden" name="next" value="{{ next }}" />
 			<div class="form-actions">
 				<button type="submit" class="btn btn-info btn-block">{{ button }}</button>
