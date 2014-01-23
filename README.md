@@ -22,7 +22,7 @@ Nowosci:
 ========
 
 Dodałem varnish cache. Aby go zainstalować, należy odpalić skrypt install_varnish.sh z folderu varnish(skrypt jest dedykowany pod Ubuntu, więc Filip będziesz go musiał trochę zmodyfikować). run_service4.sh odpala proces varnish.
-Wtedy nasz serwer jest dostępny pod localhost:4000(pod:8000, ale bez varnish cache) - varnish cache forwarduje odpowiednie requesty do serwera i wszystko działa niezależnie. 
+Wtedy nasz serwer jest dostępny pod localhost:4000(pod :8000 też, ale bez varnish cache) - varnish cache forwarduje odpowiednie requesty do serwera i wszystko działa niezależnie. 
 
 Dodaje full-text-search. Korzystamy z Haystack, a z tylu dziala solr. Standardowo : pip install django-haystack
 
