@@ -1,0 +1,9 @@
+{% extends "accounts/base.html" %}
+{% load i18n %}
+
+{% block body %}
+	{% trans "Register" as tr_Register %}
+
+    {% include "accounts/single_form.html" with title=tr_Register action_url="/accounts/register/" button=tr_Register %}
+{% endblock %}
+

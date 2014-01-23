@@ -1,0 +1,14 @@
+{% extends "accounts/base.html" %}
+{% load i18n %}
+
+{% block body %}
+	{% trans "Login" as tr_Login %}
+	{% include "accounts/single_form.html" with title=tr_Login action_url="/accounts/login/" button=tr_Login %}
+
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 well">
+			{% trans "If you don't have an account," %}
+			<a href="/accounts/register" class="alert-link">{% trans "register here" %}</a>.
+		</div>
+	</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.utils import timezone
 from django.views.generic import TemplateView, FormView, ListView
-from forms import SzachForm, SzachModelSearchForm
+from forms import SzachForm, SzachModelSearchForm, SzachUserCreationForm
 from django.core import serializers
 from models import *
 from haystack.query import EmptySearchQuerySet
@@ -11,6 +11,17 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from szachuj.settings import MQ_NAME
 from django.views.generic import DetailView
+
+from django.template.response import TemplateResponse
+from django.contrib import messages
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm
+from django.contrib.auth import authenticate, login, logout
+from django.utils.decorators import method_decorator
+import django.contrib.auth.views as auth_views
+from django.shortcuts import redirect
 
 from django.http import Http404
 
@@ -35,7 +46,7 @@ class SzachFormView(FormView):
 
     def form_valid(self, form):
         subject = form.cleaned_data['subject']
-        signature = form.cleaned_data['signature']
+        signature = form.cleaned_data['signature']	
         szach = Szach.objects.create(subject=subject, signature=signature)
         # Sending data using rabbitMQ
 
@@ -204,3 +215,44 @@ class SzachSearchView(object):
         context.update(self.extra_context())
         return render_to_response(self.template, context, context_instance=self.context_class(self.request))
 
+def Login(request):
+	print "Login"
+	return auth_views.login(request,
+		template_name='accounts/login.html',
+		authentication_form=AuthenticationForm)
+
+def Logout(request):
+	return auth_views.logout(request, template_name='accounts/logout.html')
+
+def Register(request):
+	template_name = 'accounts/register.html'
+
+	if (request.method == 'POST'):
+		form = SzachUserCreationForm(request.POST)
+
+		if form.is_valid():
+	        # All validation rules pass
+            # Process the data in form.cleaned_data
+
+			new_user = form.save()
+			messages.success(request, ('Account {name} created.').format(name=new_user.username))
+
+			return redirect('/accounts/login')
+
+	else:
+		form = SzachUserCreationForm()
+
+	return TemplateResponse(request, template_name, {'form': form,})
+
+@login_required
+def PasswordChange(request):
+	return auth_views.password_change(request,
+		template_name='accounts/password_change.html',
+		password_change_form=PasswordChangeForm,
+		post_change_redirect='/accounts/profile')
+
+@login_required
+def Profile(request):
+	template_name = 'accounts/profile.html'
+
+	return TemplateResponse(request, template_name, {})

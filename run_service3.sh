@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ../apache-solr-3.5.0/example/
+cd szachuj/apache-solr-3.5.0/example/
 java -jar start.jar
 cd -
 

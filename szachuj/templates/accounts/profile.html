@@ -1,0 +1,18 @@
+{% extends "accounts/base.html" %}
+{% load i18n %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 well">
+			<legend>{{ user.username }}</legend>
+			<p>
+				{% trans "Hello" %}
+			</p>
+			<p>
+				<a href="/accounts/password_change">
+					{% trans "Change password" %}
+				</a>
+			</p>
+		</div>
+	</div>
+{% endblock %}

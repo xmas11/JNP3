@@ -8,6 +8,8 @@ from haystack.constants import DEFAULT_ALIAS
 from haystack.query import SearchQuerySet, EmptySearchQuerySet
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
+import re
 
 try:
     from django.utils.encoding import smart_text
@@ -94,3 +96,32 @@ class SzachModelSearchForm(SzachSearchForm):
     def search(self):
         sqs = super(SzachModelSearchForm, self).search()
         return sqs.models(*self.get_models())
+        
+class SzachUserCreationForm(UserCreationForm):
+	
+	password_regex = [re.compile(regex) for regex in [r'\W', r'[A-Z]', r'\d']]
+	password_min_length = 6
+	
+	def clean_password2(self):
+		password1 = self.cleaned_data.get("password1")
+		password2 = self.cleaned_data.get("password2")
+		if password1 and password2 and password1 != password2:
+			raise forms.ValidationError(
+				self.error_messages['password_mismatch'],
+				code='password_mismatch',
+			)
+			
+		for regex in self.password_regex:
+			if not regex.search(password1):
+				raise forms.ValidationError(
+					"Password must contain a decimal, capital character and non-alphanumeric character",
+					code='password_mismatch',
+				)
+				
+		if len(password1) < self.password_min_length:
+			raise forms.ValidationError(
+				"Password must be at least {length} characters long.".format(length = self.password_min_length),
+				code='password_mismatch',
+			)
+			
+		return password2

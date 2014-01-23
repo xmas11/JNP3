@@ -1,0 +1,14 @@
+{% extends "accounts/base.html" %}
+{% load i18n %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 well">
+			<legend>{% trans "Logged out" %}</legend>
+			<p>
+				{% trans "If you wish, you can" %}
+				<a href="/accounts/login" class="alert-link">{% trans "login here" %}</a>.
+			</p>
+		</div>
+	</div>
+{% endblock %}
