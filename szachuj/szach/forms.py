@@ -8,7 +8,7 @@ from haystack.constants import DEFAULT_ALIAS
 from haystack.query import SearchQuerySet, EmptySearchQuerySet
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, PasswordChangeForm
 import re
 
 try:
@@ -96,8 +96,26 @@ class SzachModelSearchForm(SzachSearchForm):
     def search(self):
         sqs = super(SzachModelSearchForm, self).search()
         return sqs.models(*self.get_models())
+
+class BootstrapForm(object):
+	def convert_fields(self):
+		for field in self:
+			if not field.is_hidden:
+				classes = field.field.widget.attrs.get('class','').split()
+				if not 'form-control' in classes:
+					classes.append('form-control')
+				field.field.widget.attrs['class'] = ' '.join(classes)
+	def as_bootstrap(self):
+		"Returns this form rendered as HTML compatile with bootstrap."
+		self.convert_fields()
+		return self._html_output(
+			normal_row = """<div class="form-group">%(label)s%(field)s%(help_text)s</div>""",
+			error_row = '<div class="alert alert-danger">%s</div>',
+			row_ender = '</div>',
+			help_text_html = '<p class="help-block">%s</p>',
+			errors_on_separate_row = True)
         
-class SzachUserCreationForm(UserCreationForm):
+class SzachUserCreationForm(BootstrapForm, UserCreationForm):
 	
 	password_regex = [re.compile(regex) for regex in [r'\W', r'[A-Z]', r'\d']]
 	password_min_length = 6
@@ -125,3 +143,15 @@ class SzachUserCreationForm(UserCreationForm):
 			)
 			
 		return password2
+
+class BootstrapUserCreationForm(BootstrapForm, UserCreationForm):
+	pass
+
+class BootstrapAuthenticationForm(BootstrapForm, AuthenticationForm):
+	pass
+	
+class BootstrapPasswordChangeForm(BootstrapForm, PasswordChangeForm):
+	pass	
+
+class BootstrapPasswordResetForm(BootstrapForm, PasswordResetForm):
+	pass	

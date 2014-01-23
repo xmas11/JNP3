@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 from django.utils import timezone
 from django.views.generic import TemplateView, FormView, ListView
-from forms import SzachForm, SzachModelSearchForm, SzachUserCreationForm
+from forms import SzachForm, SzachModelSearchForm, SzachUserCreationForm, BootstrapAuthenticationForm, \
+	BootstrapPasswordResetForm, BootstrapPasswordChangeForm, BootstrapUserCreationForm
 from django.core import serializers
 from models import *
 from haystack.query import EmptySearchQuerySet
@@ -17,7 +18,6 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout
 from django.utils.decorators import method_decorator
 import django.contrib.auth.views as auth_views
@@ -219,7 +219,7 @@ def Login(request):
 	print "Login"
 	return auth_views.login(request,
 		template_name='accounts/login.html',
-		authentication_form=AuthenticationForm)
+		authentication_form=BootstrapAuthenticationForm)
 
 def Logout(request):
 	return auth_views.logout(request, template_name='accounts/logout.html')
