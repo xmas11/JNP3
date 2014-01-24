@@ -237,7 +237,7 @@ def Register(request):
 	template_name = 'accounts/register.html'
 
 	if (request.method == 'POST'):
-		form = 	(request.POST)
+		form = SzachUserCreationForm(request.POST)
 
 		if form.is_valid():
 	        # All validation rules pass
