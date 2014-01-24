@@ -70,8 +70,10 @@ class SzachSuccessView(TemplateView):
 
 
 class SzachListView(ListView):
-    model = Szach
     template_name = "szach_list.html"
+
+    def get_queryset(self):
+        return Szach.objects.filter(signature=self.request.user.username)
 
     def get_context_data(self, **kwargs):
         context = super(SzachListView, self).get_context_data(**kwargs)
