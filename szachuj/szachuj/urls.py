@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from szach.views import MainPageView, SzachFormView, \
-    SzachSuccessView, SzachListView, SzachSearchView, SzachView
+    SzachSuccessView, SzachListView, SzachSearchView, SzachView, SzachListPrivateView
 import szach.views as szach_views
 
 admin.autodiscover()

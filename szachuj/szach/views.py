@@ -80,6 +80,14 @@ class SzachListView(ListView):
         context['now'] = timezone.now()
         return context
 
+class SzachListPrivateView(ListView):
+    model = Szach
+    template_name = "szach_list_private.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SzachListPrivateView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
 
 RESULTS_PER_PAGE = 20
 
@@ -218,7 +226,6 @@ class SzachSearchView(object):
         return render_to_response(self.template, context, context_instance=self.context_class(self.request))
 
 def Login(request):
-	print "Login"
 	return auth_views.login(request,
 		template_name='accounts/login.html',
 		authentication_form=BootstrapAuthenticationForm)
@@ -230,7 +237,7 @@ def Register(request):
 	template_name = 'accounts/register.html'
 
 	if (request.method == 'POST'):
-		form = SzachUserCreationForm(request.POST)
+		form = 	(request.POST)
 
 		if form.is_valid():
 	        # All validation rules pass
@@ -250,7 +257,7 @@ def Register(request):
 def PasswordChange(request):
 	return auth_views.password_change(request,
 		template_name='accounts/password_change.html',
-		password_change_form=PasswordChangeForm,
+		password_change_form=BootstrapPasswordChangeForm,
 		post_change_redirect='/accounts/profile')
 
 @login_required

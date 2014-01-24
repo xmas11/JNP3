@@ -3,7 +3,7 @@ JNP3
 
 Jak odpalac:
 ============
-Wrzucilem do repo 3 skrypty : run_service[1-3].sh .
+Wrzucilem do repo 4 skrypty : run_service[1-4].sh .
 Odpalamy je w trzech roznych konsolach, w takiej kolejnosci jak mowia numerki. Pamietajcie o odpowiednim srodowisku jak ktos korzysta z virtual env. Skrypty zadzialaja, jesli macie nastepujaca strukture katalogow:
 
 costam/<br>
@@ -12,12 +12,17 @@ costam/<br>
 ------------manage.py <br>
 ------------szach/ <br>
 --------README.md <br>
---------run_service[1-3].sh <br>
+--------run_service[1-4].sh <br>
 ----apache-solr-3.5.0/ <br>
 ----rabbitmq_server-3.2.2/ <br>
 
+btw -> ktoś zmienił run_service2.sh, tak, że nie odpowiada on już tej strukturze katalogów.
+
 Nowosci:
 ========
+
+Dodałem varnish cache. Aby go zainstalować, należy odpalić skrypt install_varnish.sh z folderu varnish(skrypt jest dedykowany pod Ubuntu, więc Filip będziesz go musiał trochę zmodyfikować). run_service4.sh odpala proces varnish.
+Wtedy nasz serwer jest dostępny pod localhost:4000(pod :8000 też, ale bez varnish cache) - varnish cache forwarduje odpowiednie requesty do serwera i wszystko działa niezależnie. 
 
 Dodaje full-text-search. Korzystamy z Haystack, a z tylu dziala solr. Standardowo : pip install django-haystack
 
