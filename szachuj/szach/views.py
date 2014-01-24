@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.views.generic import TemplateView, FormView, ListView
 from forms import SzachForm, SzachModelSearchForm, SzachUserCreationForm, BootstrapAuthenticationForm, \
-	BootstrapPasswordResetForm, BootstrapPasswordChangeForm, BootstrapUserCreationForm
+    BootstrapPasswordResetForm, BootstrapPasswordChangeForm, BootstrapUserCreationForm
 from django.core import serializers
 from models import *
 from haystack.query import EmptySearchQuerySet
@@ -46,7 +46,7 @@ class SzachFormView(FormView):
 
     def form_valid(self, form):
         subject = form.cleaned_data['subject']
-        signature = form.cleaned_data['signature']	
+        signature = self.request.user.username
         szach = Szach.objects.create(subject=subject, signature=signature)
         # Sending data using rabbitMQ
 

@@ -25,9 +25,8 @@ def model_choices(using=DEFAULT_ALIAS):
 class SzachForm(forms.ModelForm):
     class Meta:
         model = Szach
+        fields = {'subject'}
         widgets = {
-            'signature': TextInput(attrs={'class': 'form-control',
-                                           'placeholder': 'Signature'}),
             'subject': Textarea(attrs={'class': 'form-control',
                                            'placeholder': 'Subject'})
         }
