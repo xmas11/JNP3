@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from szach.views import MainPageView, SzachFormView, \
-    SzachSuccessView, SzachListView, SzachSearchView, SzachView
+    SzachSuccessView, SzachListView, SzachSearchView, SzachView, SzachListPrivateView
 import szach.views as szach_views
 
 admin.autodiscover()
@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^szach_form/$', SzachFormView.as_view(), name='szach_form_view'),
     url(r'^szach_success/$', SzachSuccessView.as_view(), name='szach_success_view'),
     url(r'^szach_list/$', SzachListView.as_view(), name='szach_list_view'),
+    url(r'^szach_private/$', SzachListPrivateView.as_view(), name='szach_list_private_view'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/', SzachSearchView()),
     url(r'^accounts/login', szach_views.Login, name='szach_login_view'),

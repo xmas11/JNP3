@@ -46,7 +46,8 @@ class SzachFormView(FormView):
 
     def form_valid(self, form):
         subject = form.cleaned_data['subject']
-        signature = form.cleaned_data['signature']	
+        signature = form.cleaned_data['signature']
+        
         szach = Szach.objects.create(subject=subject, signature=signature)
         # Sending data using rabbitMQ
 
@@ -78,6 +79,14 @@ class SzachListView(ListView):
         context['now'] = timezone.now()
         return context
 
+class SzachListPrivateView(ListView):
+    model = Szach
+    template_name = "szach_list_private.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SzachListPrivateView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
 
 RESULTS_PER_PAGE = 20
 
@@ -216,7 +225,6 @@ class SzachSearchView(object):
         return render_to_response(self.template, context, context_instance=self.context_class(self.request))
 
 def Login(request):
-	print "Login"
 	return auth_views.login(request,
 		template_name='accounts/login.html',
 		authentication_form=BootstrapAuthenticationForm)
@@ -228,7 +236,7 @@ def Register(request):
 	template_name = 'accounts/register.html'
 
 	if (request.method == 'POST'):
-		form = SzachUserCreationForm(request.POST)
+		form = 	(request.POST)
 
 		if form.is_valid():
 	        # All validation rules pass

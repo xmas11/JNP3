@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+            <td>Date</td>
+            <td>Signature</td>
+            <td>Subject</td>
+        </thead>
+        <tbody>
+            {% for szach in object_list %}
+                <tr>
+				{% if szach.signature == user.username %}
+					<td>{{ szach.stamp|date:"SHORT_DATE_FORMAT"}}</td>
+					<td>{{ szach.signature }}</td>
+					<td>{{ szach.subject }}</td>
+				{%endif%}
+                </tr>
+            {% empty %}
+                <tr><td>No szachs yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
