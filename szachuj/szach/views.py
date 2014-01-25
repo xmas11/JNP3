@@ -25,6 +25,13 @@ from django.shortcuts import redirect
 
 from django.http import Http404
 
+from rest_framework.parsers import JSONParser
+from rest_framework.compat import BytesIO
+from serializers import SzachSerializer
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 class MainPageView(TemplateView):
     template_name = "index.html"
@@ -265,3 +272,32 @@ def Profile(request):
 	template_name = 'accounts/profile.html'
 
 	return TemplateResponse(request, template_name, {})
+
+def SzachCartView(request):
+    template_name = "szach_cart.html"
+    return TemplateResponse(request, template_name, {})
+
+@login_required
+def SzachSendView(request):
+
+    if (request.method == "GET" and  'szachy_json' in request.GET):
+        print "Wypisujemy JSON"
+        print request.GET['szachy_json']
+        jsonInput = request.GET['szachy_json']
+        stream = BytesIO(jsonInput)
+        data = JSONParser().parse(stream)
+        def add_user_to_data(x):
+            x[u'signature'] = request.user.username
+            return x
+        data = map(add_user_to_data,data)
+
+        def save_json_to_database(x):
+            serializer = SzachSerializer(data=x)
+            if(serializer.is_valid()):
+                szach = Szach(subject = serializer.object.subject, signature = serializer.object.signature)
+                szach.save()
+            return x
+        map(save_json_to_database,data)
+
+    template_name = "szach_send.html"
+    return TemplateResponse(request, template_name, {})

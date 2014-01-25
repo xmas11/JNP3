@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script>
+        $(document).ready(function() {
+            var request =  indexedDB.open("szachy");
+
+            request.onupgradeneeded = function() {
+                var db = request.result;
+                var store = db.createObjectStore("szachy", {keyPath: "subject"});
+                var stampIndex = store.createIndex("by_stamp", "stamp");
+            };
+
+            request.onsuccess = function() {
+                db = request.result;
+            };
+        });
+
+        function db_add_szach() {
+            var szach_text = document.getElementById("szach_text").value;
+            document.getElementById("szach_text").value = "";
+            var szach_time = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+            console.log("szach_time: " + szach_time);
+            //alert("You've just clicked me :) " + szach_text + " " + szach_time);
+
+            var tx = db.transaction("szachy", "readwrite");
+            var store = tx.objectStore("szachy");
+            store.put({subject: szach_text, stamp: szach_time});
+
+            tx.oncomplete = function() {
+
+            };
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="input-group">
+        <span class="input-group-addon">@</span>
+        <textarea class="form-control" rows=5 id="szach_text" ></textarea>
+    </div>
+    <br>
+    <button class="btn btn-default" onclick="db_add_szach()">Add Szach</button>
+{% endblock %}

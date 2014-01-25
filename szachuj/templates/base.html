@@ -4,6 +4,9 @@
     <title>Strona główna </title>
     <meta name="viewport" content="width=device-width initial-scale=1.0" charset="UTF-8">
     <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <!-- Bootstrap core CSS -->
@@ -35,6 +38,8 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Główna</a></li>
             <li><a href="/szach_form">Dodaj Szacha</a></li>
+            <li><a href="/szach_cart">Dodaj do Koszyka</a></li>
+            <li><a href="/szach_send">Wyślij Szachy</a></li>
             <li><a href="/search">Wyszukaj</a></li>
             {% if user.is_authenticated %}
 				<li><a href="/szach_private">Moje Szachy</a></li>
@@ -49,7 +54,7 @@
     <div class="content">
         {% block content %} {% endblock %}
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
     <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"/>
 </body>
 </html>

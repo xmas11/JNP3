@@ -3,3 +3,5 @@
 *.pyc
 *.swp
 local_settings.py
+szachuj/db.sqlite3
+szachuj/apache-solr-3.5.0/

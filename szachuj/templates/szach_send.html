@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script>
+
+        $(document).ready(function() {
+            var request =  indexedDB.open("szachy");
+
+            request.onupgradeneeded = function() {
+                var db = request.result;
+                var store = db.createObjectStore("szachy", {keyPath: "subject"});
+                var stampIndex = store.createIndex("by_stamp", "stamp");
+            };
+
+            request.onsuccess = function() {
+                var db = request.result;
+                fetchAllSzach(db);
+            };
+        });
+
+        function fetchAllSzach(db) {
+            var result = document.getElementById("result");
+            result.innerHTML = "";
+
+            if(db != null) {
+                var store = db.transaction("szachy").objectStore("szachy");
+                var request = store.openCursor();
+
+                bigJson = "[]";
+
+                request.onsuccess = function(evt) {
+                    var cursor = evt.target.result;
+                    if (cursor) {
+                        var szach = cursor.value.subject;
+                        var jsonStr = JSON.stringify(cursor.value);
+                        bigJson = bigJson.substring(0, bigJson.length - 1);
+                        if(bigJson.length > 1) bigJson = bigJson + ', ';
+                        bigJson = bigJson + jsonStr + ']';
+                        result.innerHTML = result.innerHTML +
+                        '<div  class="input-group">' +
+                        '<span class="input-group-addon">@</span>' +
+            '<textarea class="form-control" id="szach_text" disabled="true" >' + szach + '</textarea>' +
+                        '</div>';
+                        cursor.continue();
+                    }
+
+                    console.log(bigJson);
+                    // można by to zrobić optymalniej, gdyby odpalać poniższą linijkę jak wykonają się wszystkie
+                    // funkcje oncussess
+                    document.getElementById("json_output").value = bigJson;
+                };
+
+
+            }
+        }
+
+        function clear_database() {
+            var result = document.getElementById("result");
+            result.innerHTML = "Wysłanie udane, Twój koszyk jest teraz pusty.";
+
+            var request =  indexedDB.open("szachy");
+
+            request.onsuccess = function() {
+                var db = request.result;
+                var store = db.transaction("szachy", "readwrite").objectStore("szachy");
+
+                store.clear();
+
+                store.onsuccess = function() {
+                    result.innerHTML = "Wysłanie udane, Twój koszyk jest teraz pusty.";
+                }
+            }
+        }
+    </script>
+{% endblock %}
+{% block content %}
+    <h3>Szachy w Twoim koszyku:</h3>
+    <div id="result">
+
+    </div>
+    <br><br>
+    <form action="" method="get">
+        {% csrf_token %}
+        <input type="text" hidden="true" name="szachy_json" id="json_output" />
+        <input type="submit" onclick="clear_database()" class="btn btn-primary" value="Wyślij szachy"/>
+    </form>
+{% endblock %}
