@@ -21,6 +21,11 @@ btw -> ktoś zmienił run_service2.sh, tak, że nie odpowiada on już tej strukt
 Nowosci:
 ========
 
+REST + indexedDB
+Dodaj do koszyka - dodaje szachy do lokalnej bazy danych
+Wyślij szachy - można przejrzeć jakie szachy są w lokalnej bazie danych, a później wysłać je na serwer.
+Dodałem też przeglądanie w adminie szachów.
+
 Dodałem varnish cache. Aby go zainstalować, należy odpalić skrypt install_varnish.sh z folderu varnish(skrypt jest dedykowany pod Ubuntu, więc Filip będziesz go musiał trochę zmodyfikować). run_service4.sh odpala proces varnish.
 Wtedy nasz serwer jest dostępny pod localhost:4000(pod :8000 też, ale bez varnish cache) - varnish cache forwarduje odpowiednie requesty do serwera i wszystko działa niezależnie. 
 
