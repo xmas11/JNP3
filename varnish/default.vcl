@@ -3,14 +3,22 @@
 # 
 # Default backend definition.  Set this to point to your content
 # server.
-# 
-backend django {
-    .host = "127.0.0.1";
-    .port = "8000";
-    .connect_timeout = 5s;
-    .first_byte_timeout = 10s;
-    .between_bytes_timeout = 10s;
-}
+#
+backend apache {
+	.host = "127.0.0.1";
+	.port = "8008";
+} 
+#acl purge {
+#    "localhost";
+#    "127.0.0.1";
+#}
+#backend django {
+#    .host = "127.0.0.1";
+#    .port = "8000";
+#    .connect_timeout = 5s;
+#    .first_byte_timeout = 10s;
+#    .between_bytes_timeout = 10s;
+#}
 # 
 # Below is a commented-out copy of the default VCL logic.  If you
 # redefine any of these subroutines, the built-in logic will be
@@ -116,4 +124,5 @@ sub vcl_init {
 
 sub vcl_fini {
 	return (ok);
+
 }
